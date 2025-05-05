@@ -296,7 +296,7 @@
         
         <div class="theme-toggle" onclick="toggleTheme()">
             <span class="theme-icon" id="theme-icon">🌞</span>
-            <span class="theme-label" id="theme-label">Modo Claro</span>
+            <span class="theme-label" id="theme-label"></span>
         </div>
     </div>
 
@@ -353,10 +353,10 @@
         
         if (newTheme === 'light') {
             themeIcon.textContent = '🌞';
-            themeLabel.textContent = 'Modo Claro';
+            themeLabel.textContent = '';
         } else {
             themeIcon.textContent = '🌙';
-            themeLabel.textContent = 'Modo Escuro';
+            themeLabel.textContent = '';
         }
 
         localStorage.setItem('theme', newTheme);
@@ -371,10 +371,10 @@
         
         if (savedTheme === 'light') {
             themeIcon.textContent = '🌞';
-            themeLabel.textContent = 'Modo Claro';
+            themeLabel.textContent = '';
         } else {
             themeIcon.textContent = '🌙';
-            themeLabel.textContent = 'Modo Escuro';
+            themeLabel.textContent = '';
         }
     });
 
