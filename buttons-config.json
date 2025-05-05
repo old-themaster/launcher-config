@@ -1,9 +1,5 @@
 [
-    {
-        "title": "Início",
-        "icon": "https://ddtankbr.com.br/assets/images/imagenslogger/home-icon.png",
-        "onclick": "inicio()"
-    },
+ 
     {
         "title": "Grupo Whatsapp",
         "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2044px-WhatsApp.svg.png",
