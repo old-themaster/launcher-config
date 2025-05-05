@@ -1,0 +1,49 @@
+[
+    {
+        "title": "Início",
+        "icon": "https://ddtankbr.com.br/assets/images/imagenslogger/home-icon.png",
+        "onclick": "inicio()"
+    },
+    {
+        "title": "Grupo Whatsapp",
+        "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2044px-WhatsApp.svg.png",
+        "onclick": "tournament()"
+    },
+    {
+        "title": "Atualizar Página",
+        "icon": "https://ddtankbr.com.br/assets/images/imagenslogger/reload.png",
+        "onclick": "refreshPage()"
+    },
+    {
+        "title": "Ferramentas",
+        "icon": "https://ddtankbr.com.br/assets/images/imagenslogger/ruler-icon.png",
+        "onclick": "openRuler()"
+    },
+    {
+        "title": "Limpar Cache",
+        "icon": "https://ddtankbr.com.br/assets/images/imagenslogger/clear-icon.jpg",
+        "onclick": "clearCache()"
+    },
+	  {
+        "title": "YouTube",
+        "icon": "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg",
+        "onclick": "https://www.youtube.com/"
+    },
+    {
+        "title": "Mudo",
+        "icon": "https://ddtankbr.com.br/assets/images/imagenslogger/no-audio.png",
+        "id": "mute-icon",
+        "onclick": "toggleMute()"
+    },
+    {
+        "title": "Zoom In",
+        "icon": "https://ddtankbr.com.br/assets/images/imagenslogger/zoom-in.png",
+        "onclick": "zoom(0.1)"
+    },
+    {
+        "title": "Zoom Out",
+        "icon": "https://ddtankbr.com.br/assets/images/imagenslogger/zoom-out.png",
+        "onclick": "zoom(-0.1)"
+    }
+  
+]
