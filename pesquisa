@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pesquise servidores e informações sobre DDTank usando nosso launcher.">
+    <meta name="author" content="Seu Nome ou Empresa">
+    <meta name="keywords" content="DDTank, launcher, servidores, busca, jogo online">
+    <meta property="og:title" content="Launcher para DDTank">
+    <meta property="og:description" content="Pesquise servidores e informações sobre DDTank usando nosso launcher.">
+    <meta property="og:image" content="https://ddtankbr.com.br/assets/images/imagenslogger/fundopesquisar.jpg">
+    <meta property="og:url" content="https://ddtankbr.com.br/launcher">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Launcher para DDTank</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilo Geral */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --background-color: rgba(0, 0, 0, 0.6);
+            --text-color: #222;
+            --container-background: #f9f9f9;
+            --input-border: #ddd;
+            --primary-color: #4285F4;
+            --primary-hover: #357AE8;
+            --secondary-color: #34A853;
+            --secondary-hover: #2d9248;
+            --button-text: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --card-border-radius: 12px;
+            --server-card-bg: #fff;
+        }
+
+        [data-theme="dark"] {
+            --text-color: #e0e0e0;
+            --container-background: #2b2b2b;
+            --input-border: #444;
+            --primary-color: #82b1ff;
+            --primary-hover: #448aff;
+            --secondary-color: #81c784;
+            --secondary-hover: #66bb6a;
+            --button-text: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --server-card-bg: #333;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            background-image: url('https://ddtankbr.com.br/assets/images/imagenslogger/fundopesquisar1.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-color);
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .search-box {
+            background-color: var(--container-background);
+            padding: 30px;
+            border-radius: var(--card-border-radius);
+            box-shadow: 0 8px 20px var(--shadow-color);
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: var(--text-color);
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--input-border);
+            border-radius: 50px;
+            font-size: 16px;
+            background-color: var(--container-background);
+            color: var(--text-color);
+            padding-right: 50px;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .search-button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            background-color: var(--primary-color);
+            color: var(--button-text);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .servers-box {
+            background-color: var(--container-background);
+            padding: 25px;
+            border-radius: var(--card-border-radius);
+            box-shadow: 0 8px 20px var(--shadow-color);
+        }
+
+        .servers-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-weight: 600;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .servers-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .server-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .server-group-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .server-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .server-card {
+            background-color: var(--server-card-bg);
+            border-radius: 8px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary-color);
+            transition: all 0.3s;
+        }
+
+        .server-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .server-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .server-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--secondary-color);
+        }
+
+        .server-name {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .connect-button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--secondary-color);
+            color: var(--button-text);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .connect-button:hover {
+            background-color: var(--secondary-hover);
+        }
+
+        .theme-toggle {
+            margin-top: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0,0,0,0.2);
+        }
+
+        .theme-icon {
+            font-size: 18px;
+        }
+
+        .theme-label {
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .main-container {
+                width: 95%;
+            }
+            
+            .search-box, .servers-box {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .servers-container {
+                flex-direction: column;
+            }
+            
+            .server-group {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+<div class="main-container">
+    <div class="search-box">
+        <h1><i class="fas fa-rocket"></i> Launcher DDTank</h1>
+        
+        <div class="search-container">
+            <input type="text" id="search" class="search-input" placeholder="Digite o IP, domínio ou nome do servidor..." required>
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        
+        <button class="search-button" onclick="navigateToAddress()">
+            <i class="fas fa-play"></i> Conectar
+        </button>
+        
+        <div class="theme-toggle" onclick="toggleTheme()">
+            <span class="theme-icon" id="theme-icon">🌞</span>
+            <span class="theme-label" id="theme-label">Modo Claro</span>
+        </div>
+    </div>
+
+    <div class="servers-box">
+        <h2 class="servers-title"><i class="fas fa-server"></i> Servidores Parceiros</h2>
+        
+        <div class="servers-container">
+            <!-- Grupo de servidores Universe -->
+            <div class="server-group">
+                <h3 class="server-group-title">
+                    <i class="fas fa-globe"></i> Versão Atualizada
+                </h3>
+                <div class="server-list">
+                    <div class="server-card">
+                        <div class="server-info">
+                            <i class="fas fa-gamepad server-icon"></i>
+                            <span class="server-name">DDTank Universe</span>
+                        </div>
+                        <button class="connect-button" onclick="window.location.href='http://ddtankuniverse.com.br'">
+                            <i class="fas fa-plug"></i> Novo Servidor
+                        </button>
+                    </div>                 
+                </div>
+            </div>
+            
+            <!-- Grupo de servidores BR -->
+            <div class="server-group">
+                <h3 class="server-group-title">
+                    <i class="fas fa-flag"></i> Versão Antiga
+                </h3>
+                <div class="server-list">
+                    <div class="server-card">
+                        <div class="server-info">
+                            <i class="fas fa-gamepad server-icon"></i>
+                            <span class="server-name">DDTank BR</span>
+                        </div>
+                        <button class="connect-button" onclick="window.location.href='https://ddtankbr.com.br'">
+                            <i class="fas fa-plug"></i> Conectar
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Alternar tema entre claro e escuro
+    function toggleTheme() {
+        const body = document.body;
+        const themeIcon = document.getElementById('theme-icon');
+        const themeLabel = document.getElementById('theme-label');
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+        body.setAttribute('data-theme', newTheme);
+        
+        if (newTheme === 'light') {
+            themeIcon.textContent = '🌞';
+            themeLabel.textContent = 'Modo Claro';
+        } else {
+            themeIcon.textContent = '🌙';
+            themeLabel.textContent = 'Modo Escuro';
+        }
+
+        localStorage.setItem('theme', newTheme);
+    }
+
+    // Carregar tema salvo
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+        
+        const themeIcon = document.getElementById('theme-icon');
+        const themeLabel = document.getElementById('theme-label');
+        
+        if (savedTheme === 'light') {
+            themeIcon.textContent = '🌞';
+            themeLabel.textContent = 'Modo Claro';
+        } else {
+            themeIcon.textContent = '🌙';
+            themeLabel.textContent = 'Modo Escuro';
+        }
+    });
+
+    // Navegar para o endereço inserido
+    function navigateToAddress() {
+        const input = document.getElementById('search');
+        const query = input.value.trim();
+
+        if (query) {
+            const isFullURL = /^(http:\/\/|https:\/\/)[a-zA-Z0-9.-]+(:\d+)?(\/.*)?$/.test(query);
+            const isIPWithPort = /^(\d{1,3}\.){3}\d{1,3}(:\d+)?(\/.*)?$/.test(query);
+            const isDomainWithTLD = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(query);
+
+            if (isFullURL || isIPWithPort || isDomainWithTLD) {
+                const url = query.startsWith('http://') || query.startsWith('https://') ? query : `http://${query}`;
+                window.location.href = url;
+            } else {
+				window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            }
+        }
+    }
+
+    // Permitir navegação ao pressionar Enter
+    document.getElementById('search').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            navigateToAddress();
+        }
+    });
+</script>
+
+</body>
+</html>
