@@ -24,6 +24,11 @@
         "icon": "https://ddtankbr.com.br/assets/images/imagenslogger/clear-icon.jpg",
         "onclick": "clearCache()"
     },
+	  {
+        "title": "YouTube",
+        "icon": "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg",
+        "onclick": "https://www.youtube.com/@swaggerddtank7110"
+    },
     {
         "title": "Mudo",
         "icon": "https://ddtankbr.com.br/assets/images/imagenslogger/no-audio.png",
