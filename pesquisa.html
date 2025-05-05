@@ -15,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Estilo Geral */
         * {
             transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
             box-sizing: border-box;
@@ -323,7 +322,6 @@
                 </div>
             </div>
             
-            <!-- Grupo de servidores BR -->
             <div class="server-group">
                 <h3 class="server-group-title">
                     <i class="fas fa-flag"></i> Versão Antiga
@@ -344,7 +342,6 @@
 </div>
 
 <script>
-    // Alternar tema entre claro e escuro
     function toggleTheme() {
         const body = document.body;
         const themeIcon = document.getElementById('theme-icon');
@@ -356,10 +353,10 @@
         
         if (newTheme === 'light') {
             themeIcon.textContent = '🌞';
-            themeLabel.textContent = 'Modo Claro';
+            themeLabel.textContent = '';
         } else {
             themeIcon.textContent = '🌙';
-            themeLabel.textContent = 'Modo Escuro';
+            themeLabel.textContent = '';
         }
 
         localStorage.setItem('theme', newTheme);
@@ -382,7 +379,6 @@
         }
     });
 
-    // Navegar para o endereço inserido
     function navigateToAddress() {
         const input = document.getElementById('search');
         const query = input.value.trim();
@@ -401,7 +397,6 @@
         }
     }
 
-    // Permitir navegação ao pressionar Enter
     document.getElementById('search').addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
             navigateToAddress();
