@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Pesquise servidores e informações sobre DDTank usando nosso launcher.">
-    <meta name="author" content="sousaddt>
+    <meta name="author" content="sousaddt">
     <meta name="keywords" content="DDTank, launcher, servidores, busca, jogo online">
     <meta property="og:title" content="Launcher para DDTank">
     <meta property="og:description" content="Pesquise servidores e informações sobre DDTank usando nosso launcher.">
@@ -86,7 +86,6 @@
             margin-bottom: 25px;
             color: var(--text-color);
             font-weight: 700;
-            text-align: center;
         }
 
         .search-container {
@@ -120,22 +119,89 @@
             color: #999;
         }
 
-        .search-button {
-            padding: 12px 30px;
+        .button-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .search-button,
+        .connect-button {
+            padding: 10px 25px;
             border: none;
             border-radius: 50px;
             background-color: var(--primary-color);
             color: var(--button-text);
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s;
         }
 
-        .search-button:hover {
+        .search-button:hover,
+        .connect-button:hover {
             background-color: var(--primary-hover);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .theme-toggle {
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0,0,0,0.2);
+        }
+
+        .language-switch {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .language-switch input[type="checkbox"] {
+            width: 40px;
+            height: 20px;
+            appearance: none;
+            background-color: #ccc;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+
+        .language-switch input[type="checkbox"]::before {
+            content: "";
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            transition: transform 0.3s;
+        }
+
+        .language-switch input[type="checkbox"]:checked {
+            background-color: var(--secondary-color);
+        }
+
+        .language-switch input[type="checkbox"]:checked::before {
+            transform: translateX(20px);
+        }
+
+        .language-switch span {
+            font-size: 14px;
         }
 
         .servers-box {
@@ -217,147 +283,70 @@
             font-size: 14px;
         }
 
-        .connect-button {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--secondary-color);
-            color: var(--button-text);
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .connect-button:hover {
-            background-color: var(--secondary-hover);
-        }
-
-        .theme-toggle {
-            margin-top: 25px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 8px 15px;
-            border-radius: 20px;
-            background-color: rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .theme-toggle:hover {
-            background-color: rgba(0,0,0,0.2);
-        }
-
-        .theme-icon {
-            font-size: 18px;
-        }
-
-        .theme-label {
-            font-size: 14px;
-        }
-
         @media (max-width: 600px) {
             .main-container {
                 width: 95%;
             }
-            
-            .search-box, .servers-box {
-                padding: 20px;
-            }
-            
             h1 {
                 font-size: 24px;
             }
-            
             .servers-container {
                 flex-direction: column;
             }
-            
             .server-group {
                 min-width: 100%;
             }
-			.language-toggle {
-    margin-top: 15px;
-    text-align: center;
-}
-
-#language-selector {
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    border: none;
-    background-color: rgba(0,0,0,0.1);
-    color: var(--text-color);
-}
-
         }
     </style>
 </head>
 <body data-theme="light">
-
 <div class="main-container">
     <div class="search-box">
         <h1><i class="fas fa-rocket"></i> Launcher DDTank</h1>
-        
         <div class="search-container">
-            <input type="text" id="search" class="search-input" placeholder="Digite o IP, domínio ou nome do servidor..." required>
+            <input type="text" id="search" class="search-input" placeholder="Digite o IP, domínio ou nome do servidor...">
             <i class="fas fa-search search-icon"></i>
         </div>
-        
-        <button class="search-button" onclick="navigateToAddress()">
-            <i class="fas fa-play"></i> Conectar
-        </button>
-        
-        <div class="theme-toggle" onclick="toggleTheme()">
-            <span class="theme-icon" id="theme-icon">🌞</span>
-            <span class="theme-label" id="theme-label"></span>
+        <div class="button-row">
+            <button class="search-button" onclick="navigateToAddress()">
+                <i class="fas fa-play"></i> Conectar
+            </button>
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <span id="theme-icon">🌞</span>
+            </div>
+            <div class="language-switch">
+                <input type="checkbox" id="language-toggle" onchange="toggleLanguage()">
+                <span id="language-text">PT</span>
+            </div>
         </div>
     </div>
-	<div class="language-toggle">
-    <select id="language-selector" onchange="changeLanguage(this.value)">
-        <option value="pt">🇧🇷 Português</option>
-        <option value="en">🇺🇸 English</option>
-    </select>
-</div>
-
 
     <div class="servers-box">
         <h2 class="servers-title"><i class="fas fa-server"></i> Servidores Parceiros</h2>
-        
         <div class="servers-container">
-		
             <div class="server-group">
-                <h3 class="server-group-title">
-                    <i class="fas fa-globe"></i> Versão Atualizada
-                </h3>
+                <h3 class="server-group-title"><i class="fas fa-globe"></i> Versão Atualizada</h3>
                 <div class="server-list">
                     <div class="server-card">
                         <div class="server-info">
                             <i class="fas fa-gamepad server-icon"></i>
                             <span class="server-name">DDTank Universe</span>
                         </div>
-                        <button class="connect-button" onclick="window.location.href='http://ddtankuniverse.com.br'">
-                            <i class="fas fa-plug"></i> Novo Servidor
-                        </button>
-                    </div>                 
+                        <button class="connect-button" onclick="window.location.href='http://ddtankuniverse.com.br'">Novo Servidor</button>
+                    </div>
                 </div>
             </div>
-            
             <div class="server-group">
-                <h3 class="server-group-title">
-                    <i class="fas fa-flag"></i> Versão Antiga
-                </h3>
+                <h3 class="server-group-title"><i class="fas fa-flag"></i> Versão Antiga</h3>
                 <div class="server-list">
                     <div class="server-card">
                         <div class="server-info">
                             <i class="fas fa-gamepad server-icon"></i>
                             <span class="server-name">DDTank BR</span>
                         </div>
-                        <button class="connect-button" onclick="window.location.href='https://ddtankbr.com.br'">
-                            <i class="fas fa-plug"></i> Conectar
-                        </button>
+                        <button class="connect-button" onclick="window.location.href='https://ddtankbr.com.br'">Conectar</button>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -366,113 +355,49 @@
 <script>
     function toggleTheme() {
         const body = document.body;
-        const themeIcon = document.getElementById('theme-icon');
-        const themeLabel = document.getElementById('theme-label');
-        const currentTheme = body.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-
-        body.setAttribute('data-theme', newTheme);
-        
-        if (newTheme === 'light') {
-            themeIcon.textContent = '🌞';
-            themeLabel.textContent = '';
-        } else {
-            themeIcon.textContent = '🌙';
-            themeLabel.textContent = '';
-        }
-
-        localStorage.setItem('theme', newTheme);
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.body.setAttribute('data-theme', savedTheme);
-        
-        const themeIcon = document.getElementById('theme-icon');
-        const themeLabel = document.getElementById('theme-label');
-        
-        if (savedTheme === 'light') {
-            themeIcon.textContent = '🌞';
-            themeLabel.textContent = '';
-        } else {
-            themeIcon.textContent = '🌙';
-            themeLabel.textContent = '';
-        }
-    });
-
-    function navigateToAddress() {
-        const input = document.getElementById('search');
-        const query = input.value.trim();
-
-        if (query) {
-            const isFullURL = /^(http:\/\/|https:\/\/)[a-zA-Z0-9.-]+(:\d+)?(\/.*)?$/.test(query);
-            const isIPWithPort = /^(\d{1,3}\.){3}\d{1,3}(:\d+)?(\/.*)?$/.test(query);
-            const isDomainWithTLD = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(query);
-
-            if (isFullURL || isIPWithPort || isDomainWithTLD) {
-                const url = query.startsWith('http://') || query.startsWith('https://') ? query : `http://${query}`;
-                window.location.href = url;
-            } else {
-				window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-            }
-        }
-    }
-
-    document.getElementById('search').addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            navigateToAddress();
-        }
-    });
-</script>
-<script>
-    const translations = {
-        pt: {
-            title: "Launcher DDTank",
-            placeholder: "Digite o IP, domínio ou nome do servidor...",
-            connect: "Conectar",
-            partners: "Servidores Parceiros",
-            newServer: "Novo Servidor",
-            currentVersion: "Versão Atualizada",
-            oldVersion: "Versão Antiga",
-            connectBtn: "Conectar",
-        },
-        en: {
-            title: "DDTank Launcher",
-            placeholder: "Enter server IP, domain or name...",
-            connect: "Connect",
-            partners: "Partner Servers",
-            newServer: "New Server",
-            currentVersion: "Updated Version",
-            oldVersion: "Old Version",
-            connectBtn: "Connect",
-        }
-    };
-
-    function changeLanguage(lang) {
-        const t = translations[lang];
-
-        document.querySelector("h1").innerHTML = `<i class="fas fa-rocket"></i> ${t.title}`;
-        document.getElementById("search").placeholder = t.placeholder;
-        document.querySelector(".search-button").innerHTML = `<i class="fas fa-play"></i> ${t.connect}`;
-        document.querySelector(".servers-title").innerHTML = `<i class="fas fa-server"></i> ${t.partners}`;
-        document.querySelectorAll(".server-group-title")[0].innerHTML = `<i class="fas fa-globe"></i> ${t.currentVersion}`;
-        document.querySelectorAll(".server-group-title")[1].innerHTML = `<i class="fas fa-flag"></i> ${t.oldVersion}`;
-        document.querySelectorAll(".connect-button")[0].innerHTML = `<i class="fas fa-plug"></i> ${t.newServer}`;
-        document.querySelectorAll(".connect-button")[1].innerHTML = `<i class="fas fa-plug"></i> ${t.connectBtn}`;
-
-        const themeLabel = document.getElementById('theme-label');
-        themeLabel.textContent = document.body.getAttribute("data-theme") === "light" ? t.lightMode : t.darkMode;
-
-        localStorage.setItem("lang", lang);
+        const icon = document.getElementById("theme-icon");
+        const isLight = body.getAttribute("data-theme") === "light";
+        body.setAttribute("data-theme", isLight ? "dark" : "light");
+        icon.textContent = isLight ? "🌙" : "🌞";
+        localStorage.setItem("theme", isLight ? "dark" : "light");
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-        const savedLang = localStorage.getItem("lang") || "pt";
-        document.getElementById("language-selector").value = savedLang;
-        changeLanguage(savedLang);
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.body.setAttribute("data-theme", savedTheme);
+        document.getElementById("theme-icon").textContent = savedTheme === "light" ? "🌞" : "🌙";
     });
+
+    function navigateToAddress() {
+        const input = document.getElementById("search");
+        const query = input.value.trim();
+
+        if (query) {
+            const isFullURL = /^(http:\/\/|https:\/\/)[\w.-]+(:\d+)?(\/.*)?$/.test(query);
+            const isIPWithPort = /^(\d{1,3}\.){3}\d{1,3}(:\d+)?(\/.*)?$/.test(query);
+            const isDomainWithTLD = /^[\w.-]+\.[a-zA-Z]{2,}$/.test(query);
+
+            const url = isFullURL || isIPWithPort || isDomainWithTLD
+                ? (query.startsWith("http") ? query : `http://${query}`)
+                : `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+
+            window.location.href = url;
+        }
+    }
+
+    function toggleLanguage() {
+        const isEnglish = document.getElementById("language-toggle").checked;
+        document.getElementById("language-text").textContent = isEnglish ? "EN" : "PT";
+        document.title = isEnglish ? "DDTank Launcher" : "Launcher para DDTank";
+        document.querySelector(".search-input").placeholder = isEnglish
+            ? "Enter IP, domain, or server name..."
+            : "Digite o IP, domínio ou nome do servidor...";
+        document.querySelector(".search-button").innerHTML = `<i class="fas fa-play"></i> ${isEnglish ? 'Connect' : 'Conectar'}`;
+        document.querySelector(".servers-title").innerHTML = `<i class="fas fa-server"></i> ${isEnglish ? 'Partner Servers' : 'Servidores Parceiros'}`;
+        document.querySelector(".server-group-title").innerHTML = `<i class="fas fa-globe"></i> ${isEnglish ? 'Updated Version' : 'Versão Atualizada'}`;
+        document.querySelector(".server-name").textContent = "DDTank Universe";
+        document.querySelector(".connect-button").textContent = isEnglish ? "New Server" : "Novo Servidor";
+    }
 </script>
-
-
 </body>
 </html>
