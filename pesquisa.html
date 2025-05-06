@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Pesquise servidores e informações sobre DDTank usando nosso launcher.">
-    <meta name="author" content="Seu Nome ou Empresa">
+    <meta name="author" content="sousaddt>
     <meta name="keywords" content="DDTank, launcher, servidores, busca, jogo online">
     <meta property="og:title" content="Launcher para DDTank">
     <meta property="og:description" content="Pesquise servidores e informações sobre DDTank usando nosso launcher.">
@@ -296,7 +296,7 @@
         
         <div class="theme-toggle" onclick="toggleTheme()">
             <span class="theme-icon" id="theme-icon">🌞</span>
-            <span class="theme-label" id="theme-label"></span>
+            <span class="theme-label" id="theme-label">Modo Claro</span>
         </div>
     </div>
 
@@ -353,10 +353,10 @@
         
         if (newTheme === 'light') {
             themeIcon.textContent = '🌞';
-            themeLabel.textContent = '';
+            themeLabel.textContent = 'Modo Claro';
         } else {
             themeIcon.textContent = '🌙';
-            themeLabel.textContent = '';
+            themeLabel.textContent = 'Modo Escuro';
         }
 
         localStorage.setItem('theme', newTheme);
@@ -371,10 +371,10 @@
         
         if (savedTheme === 'light') {
             themeIcon.textContent = '🌞';
-            themeLabel.textContent = '';
+            themeLabel.textContent = 'Modo Claro';
         } else {
             themeIcon.textContent = '🌙';
-            themeLabel.textContent = '';
+            themeLabel.textContent = 'Modo Escuro';
         }
     });
 
@@ -395,11 +395,6 @@
             }
         }
     }
-	document.getElementById('search').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        navigateToAddress();
-    }
-});
 
     document.getElementById('search').addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
