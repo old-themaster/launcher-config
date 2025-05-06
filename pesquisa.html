@@ -276,6 +276,21 @@
             .server-group {
                 min-width: 100%;
             }
+			.language-toggle {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#language-selector {
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    background-color: rgba(0,0,0,0.1);
+    color: var(--text-color);
+}
+
         }
     </style>
 </head>
@@ -296,9 +311,16 @@
         
         <div class="theme-toggle" onclick="toggleTheme()">
             <span class="theme-icon" id="theme-icon">🌞</span>
-            <span class="theme-label" id="theme-label">Modo Claro</span>
+            <span class="theme-label" id="theme-label"></span>
         </div>
     </div>
+	<div class="language-toggle">
+    <select id="language-selector" onchange="changeLanguage(this.value)">
+        <option value="pt">🇧🇷 Português</option>
+        <option value="en">🇺🇸 English</option>
+    </select>
+</div>
+
 
     <div class="servers-box">
         <h2 class="servers-title"><i class="fas fa-server"></i> Servidores Parceiros</h2>
@@ -353,10 +375,10 @@
         
         if (newTheme === 'light') {
             themeIcon.textContent = '🌞';
-            themeLabel.textContent = 'Modo Claro';
+            themeLabel.textContent = '';
         } else {
             themeIcon.textContent = '🌙';
-            themeLabel.textContent = 'Modo Escuro';
+            themeLabel.textContent = '';
         }
 
         localStorage.setItem('theme', newTheme);
@@ -371,10 +393,10 @@
         
         if (savedTheme === 'light') {
             themeIcon.textContent = '🌞';
-            themeLabel.textContent = 'Modo Claro';
+            themeLabel.textContent = '';
         } else {
             themeIcon.textContent = '🌙';
-            themeLabel.textContent = 'Modo Escuro';
+            themeLabel.textContent = '';
         }
     });
 
@@ -402,6 +424,55 @@
         }
     });
 </script>
+<script>
+    const translations = {
+        pt: {
+            title: "Launcher DDTank",
+            placeholder: "Digite o IP, domínio ou nome do servidor...",
+            connect: "Conectar",
+            partners: "Servidores Parceiros",
+            newServer: "Novo Servidor",
+            currentVersion: "Versão Atualizada",
+            oldVersion: "Versão Antiga",
+            connectBtn: "Conectar",
+        },
+        en: {
+            title: "DDTank Launcher",
+            placeholder: "Enter server IP, domain or name...",
+            connect: "Connect",
+            partners: "Partner Servers",
+            newServer: "New Server",
+            currentVersion: "Updated Version",
+            oldVersion: "Old Version",
+            connectBtn: "Connect",
+        }
+    };
+
+    function changeLanguage(lang) {
+        const t = translations[lang];
+
+        document.querySelector("h1").innerHTML = `<i class="fas fa-rocket"></i> ${t.title}`;
+        document.getElementById("search").placeholder = t.placeholder;
+        document.querySelector(".search-button").innerHTML = `<i class="fas fa-play"></i> ${t.connect}`;
+        document.querySelector(".servers-title").innerHTML = `<i class="fas fa-server"></i> ${t.partners}`;
+        document.querySelectorAll(".server-group-title")[0].innerHTML = `<i class="fas fa-globe"></i> ${t.currentVersion}`;
+        document.querySelectorAll(".server-group-title")[1].innerHTML = `<i class="fas fa-flag"></i> ${t.oldVersion}`;
+        document.querySelectorAll(".connect-button")[0].innerHTML = `<i class="fas fa-plug"></i> ${t.newServer}`;
+        document.querySelectorAll(".connect-button")[1].innerHTML = `<i class="fas fa-plug"></i> ${t.connectBtn}`;
+
+        const themeLabel = document.getElementById('theme-label');
+        themeLabel.textContent = document.body.getAttribute("data-theme") === "light" ? t.lightMode : t.darkMode;
+
+        localStorage.setItem("lang", lang);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("lang") || "pt";
+        document.getElementById("language-selector").value = savedLang;
+        changeLanguage(savedLang);
+    });
+</script>
+
 
 </body>
 </html>
